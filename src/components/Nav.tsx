@@ -9,6 +9,7 @@ const Nav = () => {
             <ul className="flex gap-5">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/recipes">Recipes</Link></li>
+                <li><Link to="/create-recipe">Create a Recipe</Link></li>
                 <li><Link to="/aboutus">About Us</Link></li>
             </ul>
             <Link to="/login">Login</Link>

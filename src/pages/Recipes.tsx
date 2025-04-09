@@ -11,7 +11,7 @@ const Recipes = () => {
             <section  className="text-center">
                 <h2 className="mb-15">All recipes</h2>
                 <div className="grid grid-cols-3 gap-7">
-                    {recipes && recipes.map((recipe : IRecipe) => <Teaser img={recipe.image} name={recipe.name} desc={recipe.description} col={true} />)}
+                    {recipes && recipes.map((recipe : IRecipe) => <Teaser img={recipe.image} name={recipe.name} desc={recipe.description} col={true} id={recipe.id} key={crypto.randomUUID()}/>)}
                 </div>
             </section>
         </>
