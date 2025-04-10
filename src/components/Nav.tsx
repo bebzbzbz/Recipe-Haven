@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const Nav = () => {
     return (  
-        <nav className="flex justify-evenly items-center p-6">
-            <Link to="/" className="flex items-center gap-3"><img src="/img/Icon.svg" className="h-6" alt="Icon of a steaming cup" />
+        <nav className="flex justify-between items-center py-6 px-30">
+            <Link to="/" className="flex items-center gap-3"><img src="/img/ramen.svg" className="h-8" alt="Bowl of noodles" />
                 World of Recipes
             </Link>
             <ul className="flex gap-5">

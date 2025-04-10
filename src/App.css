@@ -13,7 +13,7 @@ body {
     font-family: "Poppins Light";
 }
 
-h2, h3 {
+h2, h3, h4 {
     font-family: "Poppins Medium";
 }
 h2 {
@@ -21,4 +21,11 @@ h2 {
 }
 h3 {
     font-size: 1.2rem;
+}
+
+input, select, textarea {
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    padding: .5rem 1rem;
 }

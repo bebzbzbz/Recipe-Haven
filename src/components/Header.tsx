@@ -4,10 +4,11 @@ import supabase from "../utils/supabase";
 import { mainContext } from "../context/MainProvider";
 import ICategory from "../models/ICategory";
 import Button from "./Button";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
     const {categories, setCategories, currentCategory, categoryRecipes} = useContext(mainContext) as any
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,12 +54,12 @@ const Header = () => {
             <div className={`relative h-100 flex justify-center overflow-clip items-center bg-center bg-cover`}>
                 <img src={headerContent.imgSrc} className="absolute w-full" />
                 <div className="w-full h-full bg-lime-800 opacity-60 absolute"></div>
-                <h1 className="text-5xl text-center mx-30 text-white z-10">
+                <h1 className="text-5xl text-center mx-50 text-white z-10">
                     {headerContent.heading}
                 </h1>
 
-                <div className="absolute bottom-7 flex gap-3">
-                    {categories && categories.map((category : ICategory) => <Button text={category.name} linkTo={`/category/${category.id}`} title={`All ${category.name} recipes`} key={crypto.randomUUID()}/>)}
+                <div className="absolute bottom-7 flex flex-wrap justify-center gap-3">
+                    {categories && categories.map((category : ICategory) => <Button text={category.name} action={() => navigate(`/category/${category.id}`)} title={`All ${category.name} recipes`} key={crypto.randomUUID()} buttonType="button" bgColor="bg-lime-600" hoverBgColor="hover:bg-lime-500"/>)}
                 </div>
             </div>
         </header>

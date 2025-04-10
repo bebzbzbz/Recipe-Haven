@@ -11,7 +11,7 @@ const Home = () => {
     if(recipes) {
         for (let index = 0; index < 3; index++) {
             if(recipes.length > 0) {
-                const random = recipes[Math.round(Math.random() * (recipes?.length -1))]
+                const random = recipes[Math.floor(Math.random() * (recipes?.length-1))]
     
                 if(!randomRecipes.includes(random)) {
                     randomRecipes.push(random)
@@ -21,14 +21,12 @@ const Home = () => {
     }
     
     return (  
-        <>
-            <section  className="text-center">
-                <h2 className="mb-15">Curious?</h2>
-                <div className="grid grid-cols-3 gap-7">
-                    {randomRecipes && randomRecipes.map((recipe : IRecipe) => <Teaser img={recipe.image} name={recipe.name} desc={recipe.description} col={true} id={recipe.id} key={crypto.randomUUID()}/>)}
-                </div>
-            </section>
-        </>
+        <section  className="text-center">
+            <h2 className="mb-15">Curious?</h2>
+            <div className="grid grid-cols-3 gap-7">
+                {randomRecipes && randomRecipes.map((recipe : IRecipe) => <Teaser img={recipe.image} name={recipe.name} desc={recipe.description}id={recipe.id} key={crypto.randomUUID()}/>)}
+            </div>
+        </section>
     );
 }
 

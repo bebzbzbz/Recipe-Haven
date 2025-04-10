@@ -44,7 +44,7 @@ function App() {
       }
     }
     fetchData()
-},[])
+  },[])
 
   return (
     <RouterProvider router={router}/>

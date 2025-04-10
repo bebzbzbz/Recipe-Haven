@@ -5,7 +5,7 @@ interface IIngredient {
     quantity: number,
     unit: string,
     additional_info: string,
-    created_at: string
+    created_at?: string
 }
 
 export default IIngredient

@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (  
-        <footer className="bg-lime-200 flex justify-between px-20 py-10">
-            <Link to="/" className="flex items-center gap-3"><img src="/img/Icon.svg" className="h-6" alt="Icon of a steaming cup" />
+        <footer className="bg-lime-200 flex justify-between px-30 py-10">
+            <Link to="/" className="flex items-center gap-3"><img src="/img/ramen.svg" className="h-7" alt="Bowl of noodles" />
                 World of Recipes
             </Link>
             <div>

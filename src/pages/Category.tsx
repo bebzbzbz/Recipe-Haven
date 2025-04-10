@@ -22,8 +22,6 @@ const Category = () => {
                     if(categoryNow) {
                         setCurrentCategory(categoryNow || null)
                     }
-
-
                 } catch (error) {
                     console.log(error)
                 }
@@ -33,13 +31,9 @@ const Category = () => {
 
 
         return (  
-        <>
-            <section  className="text-center">
-                <div className="grid grid-cols-3 gap-7">
-                    {categoryRecipes && categoryRecipes.map((recipe : IRecipe) => <Teaser img={recipe.image} name={recipe.name} desc={recipe.description} col={true} id={recipe.id} key={crypto.randomUUID()}/>)}
-                </div>
+            <section  className="text-center grid grid-cols-3 gap-7">
+                {categoryRecipes && categoryRecipes.map((recipe : IRecipe) => <Teaser img={recipe.image} name={recipe.name} desc={recipe.description} id={recipe.id} key={crypto.randomUUID()}/>)}
             </section>
-        </>
     );
 }
 
