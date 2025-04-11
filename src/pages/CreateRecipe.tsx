@@ -7,19 +7,15 @@ const CreateRecipe = () => {
     const {values, setValues, recipeToEdit, setRecipeToEdit, insert, setInsert} = useContext(mainContext) as any
 
     useEffect(() => {
-        if(recipeToEdit) {
-            setInsert(false)
-            setValues(recipeToEdit)
-        } 
-        if (!recipeToEdit) {
-            setValues({})
-            setInsert(true)
-            console.log("hallloo")
-            // setValues({});
+        if (recipeToEdit) {
+            setValues(recipeToEdit);
+            setInsert(false);
         }
-    }, [recipeToEdit, insert])
 
-    console.log(insert)
+        // if (values.id !== "") {
+        //     setRecipeToEdit(null);
+        // }
+    }, [recipeToEdit]);
 
     return (  
         <>

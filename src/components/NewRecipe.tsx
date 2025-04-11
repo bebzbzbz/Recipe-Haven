@@ -23,6 +23,13 @@ const NewRecipe = () => {
             console.error("Error while saving recipe", errorInsertRecipe)
         } else {
             console.log("Recipe added successfully")
+
+            const newRecipe = await supabase.from("recipes").select("*").eq("id", values.id)
+            console.log(values.id)
+            if(newRecipe.data) {
+                console.log(newRecipe.data)
+            }
+
             navigate(`/recipes/${values.id}`)
         }
     }
@@ -63,7 +70,7 @@ const NewRecipe = () => {
     return (  
         <section className="px-30">
             <form onSubmit={handleSubmit} className="grid grid-cols-2 items-center gap-3">
-                <h2 className="text-center col-span-2">{values.id === "" ? "Create a new Recipe" : "Edit an existing recipe"}</h2>
+                <h2 className="text-center col-span-2">Create a new Recipe</h2>
                 <fieldset>
                     <label htmlFor="recipeName">Recipe name *</label>
                     <input 

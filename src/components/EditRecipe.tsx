@@ -33,7 +33,7 @@ const EditRecipe = () => {
     return (  
         <section className="px-30">
             <form onSubmit={handleSubmit} className="grid grid-cols-2 items-center gap-3">
-                <h2 className="text-center col-span-2">{values.id === "" ? "Create a new Recipe" : "Edit an existing recipe"}</h2>
+                <h2 className="text-center col-span-2">Edit an existing recipe</h2>
                 <fieldset>
                     <label htmlFor="recipeName">Recipe name *</label>
                     <input 
