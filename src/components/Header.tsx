@@ -5,9 +5,18 @@ import { mainContext } from "../context/MainProvider";
 import ICategory from "../models/ICategory";
 import Button from "./Button";
 import { useLocation, useNavigate } from "react-router-dom";
+import BurgerNav from "./BurgerNav";
+import IRecipe from "../models/IRecipe";
+
+interface IContext {
+    categories: ICategory[],
+    setCategories: (categories: ICategory[]) => void,
+    currentCategory: ICategory[],
+    categoryRecipes: IRecipe[]
+}
 
 const Header = () => {
-    const {categories, setCategories, currentCategory, categoryRecipes} = useContext(mainContext) as any
+    const {categories, setCategories, currentCategory, categoryRecipes} = useContext(mainContext) as IContext
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -51,15 +60,28 @@ const Header = () => {
     return (  
         <header className="border-t-15 border-t-lime-200">
             <Nav/>
-            <div className={`relative h-100 flex justify-center overflow-clip items-center bg-center bg-cover`}>
-                <img src={headerContent.imgSrc} className="absolute w-full" />
-                <div className="w-full h-full bg-lime-800 opacity-60 absolute"></div>
-                <h1 className="text-5xl text-center mx-50 text-white z-10">
+            <BurgerNav/>
+            <div 
+                className={`relative h-100 flex flex-col gap-9 justify-center overflow-clip items-center`}>
+                <img 
+                    src={headerContent.imgSrc} 
+                    className="absolute h-full w-full object-cover" />
+                <div 
+                    className="w-full h-full bg-lime-800 opacity-60 absolute"></div>
+                <h1 className="text-2xl md:text-3xl text-center mx-10 md:mx-50 text-white z-10">
                     {headerContent.heading}
                 </h1>
 
-                <div className="absolute bottom-7 flex flex-wrap justify-center gap-3">
-                    {categories && categories.map((category : ICategory) => <Button text={category.name} action={() => navigate(`/category/${category.id}`)} title={`All ${category.name} recipes`} key={crypto.randomUUID()} buttonType="button" bgColor="bg-lime-600" hoverBgColor="hover:bg-lime-500"/>)}
+                <div className="flex flex-wrap justify-center gap-2 md:gap-3 z-10 mx-3">
+                    {categories && categories.map((category : ICategory) => 
+                    <Button 
+                        text={category.name} 
+                        action={() => navigate(`/category/${category.id}`)} 
+                        title={`All ${category.name} recipes`} 
+                        key={crypto.randomUUID()} 
+                        buttonType="button" 
+                        bgColor="bg-lime-600" 
+                        hoverBgColor="hover:bg-lime-500"/>)}
                 </div>
             </div>
         </header>

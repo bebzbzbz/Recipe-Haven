@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* @theme {
+    --color-background: 
+} */
+
 @font-face {
     font-family: "Poppins Light";
     src: url(/fonts/Poppins-Light.ttf);
@@ -13,6 +17,13 @@ body {
     font-family: "Poppins Light";
 }
 
+#root {
+    position: relative;
+    overflow: hidden;
+}
+
+/* === HEADER === */
+
 h2, h3, h4 {
     font-family: "Poppins Medium";
 }
@@ -22,6 +33,50 @@ h2 {
 h3 {
     font-size: 1.2rem;
 }
+
+@media screen and (min-width: 768px) {
+    header a, footer a {
+        position: relative;
+    }
+    header a:after, footer a:after {
+        content: "";
+        height: 1px;
+        width: 0%;
+        background-color: black;
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        transition: width .2s ease;
+    }
+    header a:hover:after, footer a:hover:after {
+        width: 100%;
+    }
+}
+
+
+/* === BUTTON === */
+
+button {
+    position: relative;
+    overflow: hidden;
+}
+button:after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 20%;
+    opacity: .3;
+    transform: rotate(10deg);
+    background-color: white;
+    left: -50%;
+    top: 0;
+    transition: left .3s ease;
+}
+button:hover:after {
+    left: 100%;
+}
+
+/* === FORM === */
 
 input, select, textarea {
     border-radius: 5px;

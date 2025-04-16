@@ -3,13 +3,17 @@ import Teaser from "../components/Teaser";
 import { mainContext } from "../context/MainProvider";
 import IRecipe from "../models/IRecipe";
 
+interface IContext {
+    recipes: IRecipe[]
+}
+
 const Home = () => {
-    const {recipes} = useContext(mainContext) as any
+    const {recipes} = useContext(mainContext) as IContext;
 
     const randomRecipes : IRecipe[] = []
 
     if(recipes) {
-        for (let index = 0; index < 3; index++) {
+        for (let index = 0; randomRecipes.length < 3; index++) {
             if(recipes.length > 0) {
                 const random = recipes[Math.floor(Math.random() * (recipes?.length-1))]
     
@@ -22,9 +26,9 @@ const Home = () => {
     
     return (  
         <section  className="text-center">
-            <h2 className="mb-15">Curious?</h2>
-            <div className="grid grid-cols-3 gap-7">
-                {randomRecipes && randomRecipes.map((recipe : IRecipe) => <Teaser img={recipe.image} name={recipe.name} desc={recipe.description}id={recipe.id} key={crypto.randomUUID()}/>)}
+            <h2 className="mb-15">A taste of what awaits...</h2>
+            <div className="grid md:grid-cols-3 gap-7">
+                {randomRecipes && randomRecipes.map((recipe : IRecipe) => <Teaser recipe={recipe} key={crypto.randomUUID()}/>)}
             </div>
         </section>
     );

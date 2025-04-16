@@ -4,11 +4,18 @@ import { useParams } from "react-router-dom"
 import { mainContext } from "../context/MainProvider"
 import Teaser from "../components/Teaser"
 import supabase from "../utils/supabase"
+import ICategory from "../models/ICategory"
+
+interface IContext {
+    setCategoryRecipes: (categoryRecipes: IRecipe[]) => void,
+    categoryRecipes: IRecipe[],
+    setCurrentCategory: (currentCategory: ICategory[]) => void
+}
 
 const Category = () => {
     const {categoryParam} = useParams()
 
-    const {setCategoryRecipes, categoryRecipes, setCurrentCategory} = useContext(mainContext) as any
+    const {setCategoryRecipes, categoryRecipes, setCurrentCategory} = useContext(mainContext) as IContext
 
         useEffect(() => {
             const fetchData = async () => {
@@ -32,7 +39,7 @@ const Category = () => {
 
         return (  
             <section  className="text-center grid grid-cols-3 gap-7">
-                {categoryRecipes && categoryRecipes.map((recipe : IRecipe) => <Teaser img={recipe.image} name={recipe.name} desc={recipe.description} id={recipe.id} key={crypto.randomUUID()}/>)}
+                {categoryRecipes && categoryRecipes.map((recipe : IRecipe) => <Teaser recipe={recipe} key={crypto.randomUUID()}/>)}
             </section>
     );
 }

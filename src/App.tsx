@@ -12,6 +12,10 @@ import { useContext, useEffect } from 'react';
 import supabase from './utils/supabase';
 import { mainContext } from './context/MainProvider';
 import CreateRecipe from './pages/CreateRecipe';
+import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
+import ProtectedRoute from './components/ProtectedRoute';
+import IUser from './models/IUser';
 
 function App() {
   const router = createBrowserRouter(
@@ -21,15 +25,25 @@ function App() {
         <Route path='recipes' element={<Recipes/>}/>
         <Route path='recipes/:recipeParam' element={<RecipeDetails/>}/>
         <Route path='category/:categoryParam' element={<Category/>}/>
-        <Route path='create-recipe' element={<CreateRecipe/>}/>
+        <Route path='create-recipe' element={
+          <ProtectedRoute>
+            <CreateRecipe/>
+          </ProtectedRoute>
+          }/>
         <Route path='aboutus' element={<AboutUs/>}/>
+        <Route path='signup' element={<SignUp/>}/>
         <Route path='login' element={<Login/>}/>
+        <Route path='profile' element={
+          <ProtectedRoute>
+            <Profile/>
+          </ProtectedRoute>
+          }/>
         <Route path='*' element={<NotFound/>}/>
       </Route>
     )
   )
 
-  const {setRecipes} = useContext(mainContext) as any
+  const {setRecipes, setIsLoggedIn, setUser} = useContext(mainContext) as any
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +59,19 @@ function App() {
     }
     fetchData()
   },[])
+
+  useEffect(() => {
+    const checkLoginStatus = async() => {
+        const {data} = await supabase.auth.getUser()
+        const user = data?.user
+
+        setIsLoggedIn(!!user)
+        if(user) {
+            setUser(user as unknown as IUser)
+        }
+    }
+    checkLoginStatus()
+}, [setIsLoggedIn, setUser])
 
   return (
     <RouterProvider router={router}/>
