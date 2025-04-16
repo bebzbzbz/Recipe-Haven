@@ -41,13 +41,12 @@ const MainProvider = ({children}:{children: React.ReactNode}) => {
     })
     const [createdRecipe, setCreatedRecipe] = useState<IRecipe | null>(null)
     const [user, setUser] = useState<IUser | null>(null)
-    const [profile, setProfile] = useState<IUser | null>(null)
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
     const [mobileNav, setMobileNav] = useState<boolean>(false)
 
     return (  
         <>
-            <mainContext.Provider value={{recipes, setRecipes, categories, setCategories, currentCategory, setCurrentCategory, categoryRecipes, setCategoryRecipes, recipeToEdit, setRecipeToEdit, values, setValues, edit, setEdit, createdRecipe, setCreatedRecipe, user, setUser, profile, setProfile, isLoggedIn, setIsLoggedIn, mobileNav, setMobileNav}}>
+            <mainContext.Provider value={{recipes, setRecipes, categories, setCategories, currentCategory, setCurrentCategory, categoryRecipes, setCategoryRecipes, recipeToEdit, setRecipeToEdit, values, setValues, edit, setEdit, createdRecipe, setCreatedRecipe, user, setUser, isLoggedIn, setIsLoggedIn, mobileNav, setMobileNav}}>
                 {children}
             </mainContext.Provider>
         </>

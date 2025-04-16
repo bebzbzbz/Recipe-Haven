@@ -1,11 +1,11 @@
 interface IUser {
-    user_metadata: any;
+    user_metadata?: any;
     id?: string | undefined,
-    username: string,
-    firstname: string,
-    lastname: string,
-    email: string,
-    password: string
+    username: string | undefined,
+    firstname?: string,
+    lastname?: string,
+    email: string | undefined,
+    password?: string
     img_url: string | undefined
 }
 

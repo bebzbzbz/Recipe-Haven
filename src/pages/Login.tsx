@@ -38,7 +38,6 @@ const Login = () => {
                     <label htmlFor="email">Email</label>
                     <input 
                         type="text" 
-                        name="email" 
                         placeholder="Email" 
                         ref={emailRef} 
                         required
@@ -48,7 +47,6 @@ const Login = () => {
                     <label htmlFor="password">Password</label>
                     <input 
                         type="password" 
-                        name="password" 
                         placeholder="Password" 
                         ref={passwordRef} 
                         required
