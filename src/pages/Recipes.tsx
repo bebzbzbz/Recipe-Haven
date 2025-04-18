@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 import { mainContext } from "../context/MainProvider";
 import IRecipe from "../models/IRecipe";
-import Teaser from "../components/Teaser";
 import supabase from "../utils/supabase";
+import Teaser from "../components/Teaser";
 
 interface IContext {
     recipes: IRecipe[],
@@ -29,9 +29,8 @@ const Recipes = () => {
     
     return (  
         <section  className="text-center">
-            <h2 className="mb-15">All recipes</h2>
             <div className="grid md:grid-cols-3 gap-7">
-                {recipes && recipes.map((recipe : IRecipe) => <Teaser recipe={recipe} key={crypto.randomUUID()}/>)}
+                {recipes ? recipes.map((recipe : IRecipe) => <Teaser recipe={recipe} key={crypto.randomUUID()}/>) : <p className="col-span-3">Loading...</p>}
             </div>
         </section>
     );

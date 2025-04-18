@@ -38,19 +38,18 @@ const NewRecipe = () => {
     }
 
     return (
-        <section>
-            <h2 className="text-center mb-5">Create a new Recipe</h2>
-            <form onSubmit={insertRecipe} className="grid grid-cols-2 items-center gap-3">
+        <div>
+            <h2 className="text-center mb-5 text-4xl font-medium">Create a new Recipe</h2>
+            <form onSubmit={insertRecipe} className="grid sm:grid-cols-2 items-center gap-3">
                 <fieldset>
                     <label htmlFor="recipeName">Recipe name *</label>
                     <input 
                         type="text" 
                         id="recipeName" 
                         placeholder="Enter a name" 
-                        value={values?.name}
+                        value={values?.name || ""}
                         onChange={(e) => setValues({...values, name: e.target.value})}
-                        required 
-                        className="bg-lime-200"/>
+                        required/>
                 </fieldset>
                 <fieldset>
                     <label htmlFor="servings">Servings *</label>
@@ -59,19 +58,17 @@ const NewRecipe = () => {
                         id="servings" 
                         min={1}
                         placeholder="How many servings?" 
-                        value={values?.servings} 
+                        value={values?.servings || ""} 
                         onChange={(e) => setValues({...values, servings: Number(e.target.value)})} 
-                        required 
-                        className="bg-lime-200"/>
+                        required/>
                 </fieldset>
                 <fieldset>
                     <label htmlFor="category">Category *</label>
                     <select 
                         id="category" 
-                        value={values?.category_id}
+                        value={values?.category_id || ""}
                         onChange={(e) => setValues({...values, category_id: e.target.value})} 
-                        required 
-                        className="bg-lime-200">
+                        required>
                         <option value="">Select a category</option>
                         <option value="e236c236-6150-42c6-bade-912863526149">African</option>
                         <option value="58999d33-83f2-47c6-9c4f-454fa14db49a">Desserts</option>
@@ -89,36 +86,35 @@ const NewRecipe = () => {
                         type="url"
                         id="image" 
                         placeholder="Add a photo" 
-                        value={values?.image}
+                        value={values?.image || ""}
                         onChange={(e) => setValues({...values, image: e.target.value})} 
-                        required 
-                        className="bg-lime-200"/>
+                        required/>
                 </fieldset>
                 <fieldset>
                     <label htmlFor="description">Description *</label>
                     <textarea 
                         id="description" 
+                        rows={5}
                         placeholder="Describe your dish" 
-                        value={values?.description}
+                        value={values?.description || ""}
                         onChange={(e) => setValues({...values, description: e.target.value})} 
-                        required 
-                        className="bg-lime-200"></textarea>
+                        required></textarea>
                 </fieldset>    
                 <fieldset>
                     <label htmlFor="instructions">Instructions *</label>
                     <textarea 
                         id="instructions" 
+                        rows={5}
                         placeholder="Enter your recipe" 
-                        value={values?.instructions}
+                        value={values?.instructions || ""}
                         onChange={(e) => setValues({...values, instructions: e.target.value})} 
-                        required 
-                        className="bg-lime-200"></textarea>
+                        required></textarea>
                 </fieldset>
-                <fieldset className="col-span-2 text-center">
-                    <Button text="Save new recipe" title="Save new recipe" buttonType="submit" bgColor="bg-amber-600" hoverBgColor="hover:bg-amber-500"/>
+                <fieldset className="sm:col-span-2 text-center">
+                    <Button text="Save new recipe" title="Save new recipe" buttonType="submit" bgColor="bg-recipe-light-green" hoverBgColor="hover:bg-recipe-green"/>
                 </fieldset>
             </form>
-        </section>        
+        </div>        
     );
 }
 

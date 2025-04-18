@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import IRecipe from "../models/IRecipe";
 import ICategory from "../models/ICategory";
 import IUser from "../models/IUser";
+import supabase from "../utils/supabase";
 
 export const mainContext = createContext({})
 
@@ -11,7 +12,6 @@ const MainProvider = ({children}:{children: React.ReactNode}) => {
     const [categoryRecipes, setCategoryRecipes] = useState<IRecipe[]>()
     const [currentCategory, setCurrentCategory] = useState<ICategory>()
     const [recipeToEdit, setRecipeToEdit] = useState<IRecipe | null>(null)
-    const [edit, setEdit] = useState<boolean>(false)
     const [values, setValues] = useState<IRecipe | null>({
         id: "",
         name: "",
@@ -40,13 +40,32 @@ const MainProvider = ({children}:{children: React.ReactNode}) => {
         ]
     })
     const [createdRecipe, setCreatedRecipe] = useState<IRecipe | null>(null)
+    const [editIngredientsAble, setEditIngredientsAble] = useState<boolean>(false)
     const [user, setUser] = useState<IUser | null>(null)
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-    const [mobileNav, setMobileNav] = useState<boolean>(false)
+    const [mobileNavToggle, setMobileNavToggle] = useState<boolean>(false)
+    const [newUserData, setNewUserData] = useState<IUser | null>(null)
+
+    const checkLoginStatus = async() => {
+        const {data} = await supabase.auth.getUser()
+        const loggedInUser = data?.user
+
+        setIsLoggedIn(!!loggedInUser)
+
+        if(loggedInUser) {
+            const {data: currentUser, error} = await supabase.from("users").select("*").eq("id", loggedInUser?.id)
+    
+            if(error) {
+                console.error("User fetch failed", error)
+            } else {
+                setUser(currentUser?.[0] || null)
+            }
+        }
+    }
 
     return (  
         <>
-            <mainContext.Provider value={{recipes, setRecipes, categories, setCategories, currentCategory, setCurrentCategory, categoryRecipes, setCategoryRecipes, recipeToEdit, setRecipeToEdit, values, setValues, edit, setEdit, createdRecipe, setCreatedRecipe, user, setUser, isLoggedIn, setIsLoggedIn, mobileNav, setMobileNav}}>
+            <mainContext.Provider value={{recipes, setRecipes, categories, setCategories, currentCategory, setCurrentCategory, categoryRecipes, setCategoryRecipes, recipeToEdit, setRecipeToEdit, values, setValues, createdRecipe, setCreatedRecipe, user, setUser, isLoggedIn, setIsLoggedIn, mobileNavToggle, setMobileNavToggle, newUserData, setNewUserData, checkLoginStatus, editIngredientsAble, setEditIngredientsAble}}>
                 {children}
             </mainContext.Provider>
         </>

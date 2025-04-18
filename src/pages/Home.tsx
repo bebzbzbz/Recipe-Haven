@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import Teaser from "../components/Teaser";
 import { mainContext } from "../context/MainProvider";
 import IRecipe from "../models/IRecipe";
+import { Link } from "react-router-dom";
+import Teaser from "../components/Teaser";
 
 interface IContext {
     recipes: IRecipe[]
@@ -23,13 +24,25 @@ const Home = () => {
             }
         }
     }
+
+    if(randomRecipes.length === 0) {
+        return (
+            <section className="text-center">
+                <h2 className="mb-15">Loading...</h2>
+                <p>Loading...</p>
+            </section>
+        )
+    }
     
     return (  
-        <section  className="text-center">
-            <h2 className="mb-15">A taste of what awaits...</h2>
-            <div className="grid md:grid-cols-3 gap-7">
+        <section>
+            <h2 className="mb-15 text-5xl text-right">Whatever your heart <span>desires</span>...</h2>
+            <div className="flex flex-col mx-auto mb-15 gap-10">
                 {randomRecipes && randomRecipes.map((recipe : IRecipe) => <Teaser recipe={recipe} key={crypto.randomUUID()}/>)}
             </div>
+            <Link to="/recipes">
+            <h2 className="mb-15 text-5xl hover:text-recipe-pink transition-colors">And a <span>lot more!</span></h2>
+            </Link>
         </section>
     );
 }

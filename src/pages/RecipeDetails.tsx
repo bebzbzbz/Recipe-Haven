@@ -11,13 +11,14 @@ interface IContext {
   setEdit: (edit: boolean) => void,
   setCreatedRecipe: (createdRecipe: IRecipe | null) => void,
   isLoggedIn: boolean
+  recipes: IRecipe[]
 }
 
 const RecipeDetails = () => {
   const [sureDelete, setSureDelete] = useState<boolean>(false)
   const [recipeDetails, setRecipeDetails] = useState<IRecipe>()
 
-  const {setRecipeToEdit, setEdit, setCreatedRecipe, isLoggedIn} = useContext(mainContext) as IContext;
+  const {setRecipeToEdit, isLoggedIn, recipes} = useContext(mainContext) as IContext;
 
   const {recipeParam} = useParams()
 
@@ -54,36 +55,37 @@ const RecipeDetails = () => {
     if (recipeDetails) {
       setRecipeToEdit(recipeDetails);
     }
-    setEdit(true)
-    setCreatedRecipe(null)
-    navigate("/create-recipe")
+    navigate("/edit-recipe")
   }
 
   return (  
       <section className="flex flex-col-reverse lg:flex-row gap-10 w-3/4 mx-auto justify-between">
-        <div className="flex flex-col gap-5 lg:w-1/2">
+        {recipeDetails ? <div className="flex flex-col gap-5 lg:w-1/2">
           <div>
-            <h2>{recipeDetails?.name}</h2>
+            <h2 className="text-4xl font-medium">{recipeDetails?.name}</h2>
             <p>{recipeDetails?.description}</p>
           </div>
           
           <div>
-            <h3>Ingredients</h3>
-            <h4 className="mb-2">For {recipeDetails?.servings} Servings</h4>
+            <h3 className="font-normal text-2xl">Ingredients</h3>
+            <h4 className="mb-2 font-normal">For {recipeDetails?.servings} Servings</h4>
 
             <ul className="list-disc ml-5">
-              {recipeDetails?.ingredients && recipeDetails.ingredients.map((ingredient: IIngredient) => 
-                <li className="mb-1" key={crypto.randomUUID()}>{ingredient.name}
-                  <ul>
-                    <li>{ingredient.quantity} {ingredient.unit}{ingredient.additional_info && `, ${ingredient.additional_info}`}</li>
-                  </ul>
-                </li>
-                )}
+              {recipeDetails?.ingredients && recipeDetails.ingredients.map((ingredient: IIngredient) => (
+                ingredient.name !== "" && (
+                  <li className="mb-1" key={crypto.randomUUID()}>
+                    {ingredient.name}
+                    <ul>
+                      <li>{ingredient.quantity} {ingredient?.unit}{ingredient.additional_info && `, ${ingredient.additional_info}`}</li>
+                    </ul>
+                  </li>
+                )
+              ))}
             </ul>
           </div>
     
           <div>
-            <h3>Instructions</h3>
+            <h3 className="font-normal text-2xl">Instructions</h3>
             <ol className="list-decimal ml-5">
               {recipeDetails?.instructions.split(". ").map((instruction : string) => <li key={crypto.randomUUID()}>{instruction}</li>)}
             </ol>
@@ -95,32 +97,40 @@ const RecipeDetails = () => {
               action={handleEdit} 
               title="Edit recipe" 
               buttonType="button" 
-              bgColor="bg-amber-600" 
-              hoverBgColor="hover:bg-amber-500"
+              bgColor="bg-recipe-light-green" 
+              hoverBgColor="hover:bg-recipe-green"
             />
 
+            {recipes?.length > 15 ? 
+            <>
             {!sureDelete ? 
               <Button 
                 text="Delete Recipe" 
                 title="Delete recipe" 
                 action={() => setSureDelete(true)} 
                 buttonType="button" 
-                bgColor="bg-red-600" 
-                hoverBgColor="hover:bg-red-500"
+                bgColor="bg-recipe-yellow" 
+                hoverBgColor="hover:bg-recipe-orange"
               />
               : 
               <Button 
-                text="Are you sure?" 
+                text="Delete for sure?" 
                 title="Delete recipe" 
                 action={handleDelete} 
                 buttonType="button" 
-                bgColor="bg-red-600" 
-                hoverBgColor="hover:bg-red-500"
+                bgColor="bg-recipe-orange" 
+                hoverBgColor="hover:bg-recipe-brown"
               />
-            } 
+            }</> : <Button 
+            text="Cannot delete more" 
+            title="Cannot delete more" 
+            buttonType="button" 
+            bgColor="bg-recipe-brown" 
+            hoverBgColor="hover:bg-recipe-brown"
+          /> }
           </div>}
-        </div>
-        <img src={recipeDetails?.image} alt={recipeDetails?.name} className="rounded-xl max-h-120 lg:w-1/2 object-cover"/>
+        </div> : <p>Loading recipe...</p>}
+        <img src={recipeDetails?.image || "/svg/onion.svg"} alt={recipeDetails?.name} className="max-h-120 rounded-sm lg:w-1/2 lg:max-h-full object-cover"/>
       </section>
   );
 }

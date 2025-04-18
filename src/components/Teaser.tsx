@@ -1,5 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
-import Button from "./Button";
+import { Link } from "react-router-dom";
 import IRecipe from "../models/IRecipe";
 
 interface TeaserProps {
@@ -7,19 +6,16 @@ interface TeaserProps {
 }
 
 const Teaser = ({recipe}:TeaserProps) => {
-    const navigate = useNavigate();
-
     return (  
-        <article className="flex flex-col gap-5 bg-amber-100 rounded-xl overflow-clip">
-            <Link to={`/recipes/${recipe?.id}`} className="h-90 overflow-clip flex items-center relative">
-                <div className="bg-lime-700 absolute top-0 left-0 right-0 h-full opacity-30 hover:opacity-0 transition-all"></div>
+        <article className="flex flex-col overflow-clip rounded-sm">
+            <Link to={`/recipes/${recipe?.id}`} className="h-70 overflow-clip flex items-center relative teaser">
+                <div className="absolute top-0 left-0 right-0 h-full opacity-100 transition-all duration-400">
+                    <div className="bg-background h-full w-full opacity-15 transition-opacity"></div>
+                    <h3 className="absolute w-full h-full top-0 flex items-center justify-center text-white text-4xl font-medium transition-opacity">{recipe?.name}</h3>
+                </div>
+                <p className="absolute top-0 left-0 right-0 w-full h-full flex items-center justify-center text-center description transition-opacity text-xl font-medium text-recipe-brown px-10">{recipe?.description}</p>
                 <img className="w-full h-full object-cover" src={recipe?.image} alt={recipe?.name}/>
             </Link>
-            <div className="flex flex-col pb-9 items-center px-5 justify-between h-50">
-                <h3>{recipe?.name}</h3>
-                <p>{recipe?.description}</p>
-                <Button text={"See recipe"} action={() => navigate(`/recipes/${recipe?.id}`)} title={`See recipe for ${recipe?.name}`} buttonType="button" bgColor="bg-amber-600" hoverBgColor="hover:bg-amber-500"/>
-            </div>
         </article>
     );
 }

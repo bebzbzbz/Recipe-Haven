@@ -15,7 +15,16 @@ import CreateRecipe from './pages/CreateRecipe';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
 import ProtectedRoute from './components/ProtectedRoute';
+import EditCreatedRecipe from './pages/EditCreatedRecipe';
+import IRecipe from './models/IRecipe';
 import IUser from './models/IUser';
+
+interface IContext {
+  setRecipes: (recipes: IRecipe[]) => void,
+  setIsLoggedIn: (isLoggedIn: boolean) => void,
+  setUser: (user: IUser) => void,
+  checkLoginStatus: () => void
+}
 
 function App() {
   const router = createBrowserRouter(
@@ -28,6 +37,11 @@ function App() {
         <Route path='create-recipe' element={
           <ProtectedRoute>
             <CreateRecipe/>
+          </ProtectedRoute>
+          }/>
+        <Route path='edit-recipe' element={
+          <ProtectedRoute>
+            <EditCreatedRecipe/>
           </ProtectedRoute>
           }/>
         <Route path='aboutus' element={<AboutUs/>}/>
@@ -43,7 +57,7 @@ function App() {
     )
   )
 
-  const {setRecipes, setIsLoggedIn, setUser} = useContext(mainContext) as any
+  const {setRecipes, setIsLoggedIn, setUser, checkLoginStatus} = useContext(mainContext) as IContext
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,17 +75,8 @@ function App() {
   },[])
 
   useEffect(() => {
-    const checkLoginStatus = async() => {
-        const {data} = await supabase.auth.getUser()
-        const user = data?.user
-
-        setIsLoggedIn(!!user)
-        if(user) {
-            setUser(user as unknown as IUser)
-        }
-    }
     checkLoginStatus()
-}, [setIsLoggedIn, setUser])
+  }, [setIsLoggedIn, setUser])
 
   return (
     <RouterProvider router={router}/>

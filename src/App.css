@@ -1,20 +1,29 @@
 @import "tailwindcss";
 
-/* @theme {
-    --color-background: 
-} */
+@theme {
+    --color-background: #FFF7F1;
+    --color-recipe-green: #095C2B;
+    --color-recipe-light-green: #53ae78;
+    --color-recipe-brown: #3F1F1F;
+    --color-recipe-orange: #FC4408;
+    --color-recipe-pink: #e67652;
+    --color-recipe-yellow: #e3890e;
+}
 
 @font-face {
-    font-family: "Poppins Light";
-    src: url(/fonts/Poppins-Light.ttf);
+    font-family: "Playfair Italic";
+    src: url(/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf);
 }
 @font-face {
-    font-family: "Poppins Medium";
-    src: url(/fonts/Poppins-Medium.ttf);
+    font-family: "Chivo";
+    src: url(/fonts/Chivo-VariableFont_wght.ttf);
 }
 
 body {
-    font-family: "Poppins Light";
+    font-family: "Chivo";
+    font-weight: 100;
+    background-color: #FFF7F1;
+    font-size: 1.2rem;
 }
 
 #root {
@@ -24,14 +33,13 @@ body {
 
 /* === HEADER === */
 
-h2, h3, h4 {
-    font-family: "Poppins Medium";
+h1, nav a, .teaser h3 {
+    text-shadow: #743939 0px 0px 5px;
 }
-h2 {
-    font-size: 1.7rem;
-}
-h3 {
-    font-size: 1.2rem;
+
+h1 span, h2 span, h3 span {
+    font-family: "Playfair Italic";
+    font-weight: 600;
 }
 
 @media screen and (min-width: 768px) {
@@ -42,7 +50,7 @@ h3 {
         content: "";
         height: 1px;
         width: 0%;
-        background-color: black;
+        background-color: white;
         position: absolute;
         bottom: -2px;
         left: 0;
@@ -70,17 +78,30 @@ button:after {
     background-color: white;
     left: -50%;
     top: 0;
-    transition: left .3s ease;
+    transition: left .4s ease;
 }
 button:hover:after {
-    left: 100%;
+    left: 110%;
 }
 
 /* === FORM === */
 
 input, select, textarea {
-    border-radius: 5px;
     display: block;
+    border-radius: 4px;
     width: 100%;
     padding: .5rem 1rem;
+    border: 1px solid #F4A11C;
+}
+
+/* === TEASER === */
+
+.teaser:hover .description {
+    opacity: 1;
+}
+.teaser:hover div div {
+    opacity: .7;
+}
+.description, .teaser:hover h3 {
+    opacity: 0;
 }

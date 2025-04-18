@@ -1,13 +1,17 @@
 import { ChangeEvent, useContext } from "react";
 import Button from "../components/Button";
 import supabase from "../utils/supabase";
-import { useNavigate } from "react-router-dom";
 import { mainContext } from "../context/MainProvider";
-import IIngredient from "../models/IIngredient";
+import IRecipe from "../models/IRecipe";
+
+interface IContext {
+    values: IRecipe,
+    setValues: (values: IRecipe) => void,
+    setEditIngredientsAble: (editIngredientsAble: boolean) => void
+}
 
 const EditRecipe = () => {
-    const {values, setValues} = useContext(mainContext) as any
-    const navigate = useNavigate();
+    const {values, setValues, setEditIngredientsAble} = useContext(mainContext) as IContext
 
     const editRecipe = async() => {
         const {error: errorUpdate} = await supabase.from("recipes").update({
@@ -22,27 +26,27 @@ const EditRecipe = () => {
             console.error("Error while editing", errorUpdate)
         } else {
             console.log("Recipe edited successfully")
-            navigate(`/recipes/${values.id}`)
         }
     }
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         editRecipe();
+        setEditIngredientsAble(true)
     }
 
     return (  
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 items-center gap-3">
-            <h2 className="text-center col-span-2">Edit an existing recipe</h2>
+        <>
+        <h2 className="text-center mb-5 text-4xl font-medium">Edit an existing recipe</h2>
+        <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 items-center gap-3">
             <fieldset>
                 <label htmlFor="recipeName">Recipe name *</label>
                 <input 
                     type="text" 
                     id="recipeName" 
                     placeholder="Enter a name" 
-                    value={values.name}
+                    value={values?.name || ""}
                     onChange={(e) => setValues({...values, name: e.target.value})}
-                    required 
-                    className="bg-lime-200"/>
+                    required/>
             </fieldset>
             <fieldset>
                 <label htmlFor="servings">Servings *</label>
@@ -51,19 +55,17 @@ const EditRecipe = () => {
                     id="servings" 
                     min={1}
                     placeholder="How many servings?" 
-                    value={values.servings} 
+                    value={values?.servings || ""} 
                     onChange={(e) => setValues({...values, servings: Number(e.target.value)})} 
-                    required 
-                    className="bg-lime-200"/>
+                    required/>
             </fieldset>
             <fieldset>
                 <label htmlFor="category">Category *</label>
                 <select 
                     id="category" 
-                    value={values.category_id}
+                    value={values?.category_id || ""}
                     onChange={(e) => setValues({...values, category_id: e.target.value})} 
-                    required 
-                    className="bg-lime-200">
+                    required>
                     <option value="">Select a category</option>
                     <option value="e236c236-6150-42c6-bade-912863526149">African</option>
                     <option value="58999d33-83f2-47c6-9c4f-454fa14db49a">Desserts</option>
@@ -81,156 +83,36 @@ const EditRecipe = () => {
                     type="url"
                     id="image" 
                     placeholder="Add a photo" 
-                    value={values.image}
+                    value={values?.image}
                     onChange={(e) => setValues({...values, image: e.target.value})} 
-                    required 
-                    className="bg-lime-200"/>
+                    required/>
             </fieldset>
             <fieldset>
                 <label htmlFor="description">Description *</label>
                 <textarea 
                     id="description" 
+                    rows={5}
                     placeholder="Describe your dish" 
-                    value={values.description}
+                    value={values?.description || ""}
                     onChange={(e) => setValues({...values, description: e.target.value})} 
-                    required 
-                    className="bg-lime-200"></textarea>
+                    required></textarea>
             </fieldset>    
             <fieldset>
                 <label htmlFor="instructions">Instructions *</label>
                 <textarea 
                     id="instructions" 
+                    rows={5}
                     placeholder="Enter your recipe" 
-                    value={values.instructions}
+                    value={values?.instructions || ""}
                     onChange={(e) => setValues({...values, instructions: e.target.value})} 
-                    required 
-                    className="bg-lime-200"></textarea>
+                    required></textarea>
             </fieldset>
-            <h3 className="text-center col-span-2">
-                Edit Ingredients
-            </h3>
-            <fieldset>
-                <label htmlFor="ingredient-1-name">1. Ingredient</label>
-                <input 
-                    type="text" 
-                    id="ingredient-1-name" 
-                    placeholder="Name of ingredient" 
-                    value={values.ingredients?.[0].name}
-                    onChange={(e) => setValues({
-                        ...values, 
-                        ingredients: values.ingredients?.map((ingredient: IIngredient, index: number) => 
-                            index === 0 ? { ...ingredient, name: e.target.value } : ingredient
-                        )
-                    })}
-                    className="bg-lime-200"/>
-            </fieldset>
-            <fieldset>
-                <label htmlFor="ingredient-1-info">1. Additional info</label>
-                <input 
-                    type="text" 
-                    id="ingredient-1-info" 
-                    placeholder="i.e. diced, cubed, grated..." 
-                    value={values.ingredients?.[0].additional_info}
-                    onChange={(e) => setValues({
-                        ...values, 
-                        ingredients: values.ingredients?.map((ingredient: IIngredient, index: number) => 
-                            index === 0 ? { ...ingredient, additional_info: e.target.value } : ingredient
-                        )
-                    })}
-                    className="bg-lime-200"/>
-            </fieldset>
-            <fieldset>
-                <label htmlFor="ingredient-1-quantity">1. Quantity of ingredient</label>
-                <input 
-                    type="number" 
-                    id="ingredient-1-quantity" 
-                    value={values.ingredients?.[0].quantity}
-                    onChange={(e) => setValues({
-                        ...values, 
-                        ingredients: values.ingredients?.map((ingredient: IIngredient, index: number) => 
-                            index === 0 ? { ...ingredient, quantity: Number(e.target.value) } : ingredient
-                        )
-                    })}
-                    className="bg-lime-200"/>
-            </fieldset>
-            <fieldset>
-                <label htmlFor="ingredient-1-unit">1. Unit of ingredient</label>
-                <input 
-                    type="text" 
-                    id="ingredient-1-unit" 
-                    placeholder="i.e. ml" 
-                    value={values.ingredients?.[0].unit}
-                    onChange={(e) => setValues({
-                        ...values, 
-                        ingredients: values.ingredients?.map((ingredient: IIngredient, index: number) => 
-                            index === 0 ? { ...ingredient, unit: e.target.value } : ingredient
-                        )
-                    })}
-                    className="bg-lime-200"/>
-            </fieldset>
-            <fieldset>
-                <label htmlFor="ingredient-2-name">2. Ingredient</label>
-                <input 
-                    type="text" 
-                    id="ingredient-2-name" 
-                    placeholder="Name of ingredient" 
-                    value={values.ingredients?.[1].name}
-                    onChange={(e) => setValues({
-                        ...values, 
-                        ingredients: values.ingredients?.map((ingredient: IIngredient, index: number) => 
-                            index === 1 ? { ...ingredient, name: e.target.value } : ingredient
-                        )
-                    })}
-                    className="bg-lime-200"/>
-            </fieldset>
-            <fieldset>
-                <label htmlFor="ingredient-2-info">2. Additional info</label>
-                <input 
-                    type="text" 
-                    id="ingredient-2-info" 
-                    placeholder="i.e. diced, cubed, grated..." 
-                    value={values.ingredients?.[1].additional_info}
-                    onChange={(e) => setValues({
-                        ...values, 
-                        ingredients: values.ingredients?.map((ingredient: IIngredient, index: number) => 
-                            index === 1 ? { ...ingredient, additional_info: e.target.value } : ingredient
-                        )
-                    })}
-                    className="bg-lime-200"/>
-            </fieldset>
-            <fieldset>
-                <label htmlFor="ingredient-2-quantity">2. Quantity of ingredient</label>
-                <input 
-                    type="number" 
-                    id="ingredient-2-quantity" 
-                    value={values.ingredients?.[1].quantity}
-                    onChange={(e) => setValues({
-                        ...values, 
-                        ingredients: values.ingredients?.map((ingredient: IIngredient, index: number) => 
-                            index === 1 ? { ...ingredient, quantity: e.target.value } : ingredient
-                        )
-                    })}
-                    className="bg-lime-200"/>
-            </fieldset>
-            <fieldset>
-                <label htmlFor="ingredient-2-unit">2. Unit of ingredient</label>
-                <input 
-                    type="text" 
-                    id="ingredient-2-unit" 
-                    placeholder="i.e. ml" 
-                    value={values.ingredients?.[1].unit}
-                    onChange={(e) => setValues({
-                        ...values, 
-                        ingredients: values.ingredients?.map((ingredient: IIngredient, index: number) => 
-                            index === 1 ? { ...ingredient, unit: e.target.value } : ingredient
-                        )
-                    })}
-                    className="bg-lime-200"/>
-            </fieldset>
-            <fieldset className="col-span-2 text-center">
-                <Button text="Edit recipe" title="Edit recipe" buttonType="submit" bgColor="bg-amber-600" hoverBgColor="hover:bg-amber-500"/>
+            <fieldset className="sm:col-span-2 text-center">
+                <Button text="Save and continue to ingredients" title="Save and continue to ingredients" buttonType="submit" bgColor="bg-recipe-light-green" hoverBgColor="hover:bg-recipe-green"/>
             </fieldset>
         </form>
+        </>
+
     );
 }
 

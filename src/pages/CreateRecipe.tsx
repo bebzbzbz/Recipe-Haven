@@ -1,29 +1,20 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { mainContext } from "../context/MainProvider";
 import NewRecipe from "../components/NewRecipe";
-import EditRecipe from "../components/EditRecipe";
 import NewIngredients from "../components/NewIngredients";
 import IRecipe from "../models/IRecipe";
 
 interface IContext {
     setValues: (values: IRecipe) => void,
-    recipeToEdit: IRecipe,
-    edit: boolean,
     createdRecipe: IRecipe
 }
 
 const CreateRecipe = () => {
-    const {setValues, recipeToEdit, edit, createdRecipe} = useContext(mainContext) as IContext
-
-    useEffect(() => {
-        if (recipeToEdit) {
-            setValues(recipeToEdit);
-        }
-    }, [edit, recipeToEdit]);
+    const {createdRecipe} = useContext(mainContext) as IContext
 
     return (  
-        <section className="md:px-30">
-            {!createdRecipe && (edit ? <EditRecipe/> : <NewRecipe/>)} 
+        <section className="md:w-3/4 mx-auto">
+            {!createdRecipe && <NewRecipe/>} 
             {createdRecipe && <NewIngredients/>}
         </section>
     );

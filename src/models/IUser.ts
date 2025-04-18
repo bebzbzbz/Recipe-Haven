@@ -2,9 +2,9 @@ interface IUser {
     user_metadata?: any;
     id?: string | undefined,
     username: string | undefined,
-    firstname?: string,
-    lastname?: string,
-    email: string | undefined,
+    firstname: string,
+    lastname: string,
+    email?: string,
     password?: string
     img_url: string | undefined
 }

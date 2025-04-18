@@ -7,16 +7,18 @@ import Button from "./Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import BurgerNav from "./BurgerNav";
 import IRecipe from "../models/IRecipe";
+import IUser from "../models/IUser";
 
 interface IContext {
     categories: ICategory[],
     setCategories: (categories: ICategory[]) => void,
     currentCategory: ICategory[],
-    categoryRecipes: IRecipe[]
+    categoryRecipes: IRecipe[],
+    user: IUser
 }
 
 const Header = () => {
-    const {categories, setCategories, currentCategory, categoryRecipes} = useContext(mainContext) as IContext
+    const {categories, setCategories, currentCategory, categoryRecipes, user} = useContext(mainContext) as IContext
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -45,31 +47,55 @@ const Header = () => {
         heading: ""
     }
 
-    if (location.pathname.includes("category") && categoryRecipes && currentCategory) {
-        headerContent.imgSrc = categoryRecipes[3]?.image
-        headerContent.heading = currentCategory[0]?.name + " Recipes"
-    } else {
-        headerContent.imgSrc = "/img/header.jfif"
-        headerContent.heading = "Be inspired, cook with passion and experience unforgettable moments at the table."
+    switch (true) {
+        case location.pathname === "/":
+            headerContent.imgSrc = "/img/wine_table.jpg"
+            headerContent.heading = "Life is about finding <span>friends</span> to be <span>in the kitchen with</span>."
+            break;
+    
+        case location.pathname.includes("category") && !!categoryRecipes && !!currentCategory:
+            headerContent.imgSrc = categoryRecipes[1]?.image
+            headerContent.heading = `<span>${currentCategory[0]?.name}</span> Recipes`
+            break;
 
-        if(location.pathname === "/recipes") {
-            headerContent.heading = "All Recipes"
-        }
+        case location.pathname.includes("/recipes"):
+            headerContent.imgSrc = "/img/outdoors.jpg"
+            headerContent.heading = "All <span>recipes</span> and <span>treats</span>"
+            break;
+        
+        case location.pathname === "/create-recipe" || location.pathname === "/edit-recipe":
+            headerContent.imgSrc = "/img/cake.jpg"
+            headerContent.heading = "Manage your <span>brand new</span> recipes"
+            break;
+        
+        case location.pathname === "/aboutus" || location.pathname === "/signup" || location.pathname === "/login":
+            headerContent.imgSrc = "/img/lemons.jpg"
+            headerContent.heading = "Be <span>inspired</span> and experience <span>unforgettable</span> moments at the table."
+            break;
+        
+        case location.pathname === "/profile":
+            headerContent.imgSrc = "/img/coffee.jpg"
+            headerContent.heading = `Welcome <span>${user?.username || ""}</span>!`
+            break;
+
+        default:
+            headerContent.imgSrc = "/img/lemons.jpg"
+            headerContent.heading = "Recipe <span>Haven</span>."
+            break;
     }
 
     return (  
-        <header className="border-t-15 border-t-lime-200">
-            <Nav/>
+        <header className="border-t-15 border-t-recipe-brown lg:border-0">
+            {<Nav/>}
             <BurgerNav/>
             <div 
-                className={`relative h-100 flex flex-col gap-9 justify-center overflow-clip items-center`}>
+                className={`relative flex flex-col gap-9 pt-15 h-140 justify-center overflow-clip items-center ${location.pathname === "/" && "h-screen"}`}>
                 <img 
                     src={headerContent.imgSrc} 
-                    className="absolute h-full w-full object-cover" />
+                    className="absolute top-0 h-full w-full object-cover" />
                 <div 
-                    className="w-full h-full bg-lime-800 opacity-60 absolute"></div>
-                <h1 className="text-2xl md:text-3xl text-center mx-10 md:mx-50 text-white z-10">
-                    {headerContent.heading}
+                    className={`w-full h-full top-0 absolute ${location.pathname === "/" ? "opacity-15 bg-background" : "opacity-35 bg-recipe-brown"}`}></div>
+                <h1 className={`text-4xl md:text-5xl text-center mx-10 text-white z-10 ${location.pathname === "/" ? "xl:mx-120" : "xl:mx-100"}`} dangerouslySetInnerHTML={{ __html: headerContent.heading }}>
                 </h1>
 
                 <div className="flex flex-wrap justify-center gap-2 md:gap-3 z-10 mx-3">
@@ -80,8 +106,8 @@ const Header = () => {
                         title={`All ${category.name} recipes`} 
                         key={crypto.randomUUID()} 
                         buttonType="button" 
-                        bgColor="bg-lime-600" 
-                        hoverBgColor="hover:bg-lime-500"/>)}
+                        bgColor="bg-recipe-yellow" 
+                        hoverBgColor="hover:bg-recipe-pink"/>)}
                 </div>
             </div>
         </header>

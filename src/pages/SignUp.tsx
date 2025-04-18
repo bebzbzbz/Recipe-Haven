@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react"
+import { useContext, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { mainContext } from "../context/MainProvider"
 import IUser from "../models/IUser"
@@ -21,23 +21,6 @@ const SignUp = () => {
 
     const {user, setUser} = useContext(mainContext) as IUserProps
 
-    // const [profileImg, setProfileImg] = useState<File | null>(null)
-
-    // const uploadImg = async() => {
-    //     if(!profileImg) return null
-
-    //     const fileName = profileImg.name
-
-    //     const {error} = await supabase.storage.from("profile-imgs").upload(fileName, profileImg)
-
-    //     if(error) {
-    //         console.error("Error uploading the profile image")
-    //     }
-
-    //     const photoUrl = supabase.storage.from("profile-imgs").getPublicUrl(fileName).data.publicUrl
-    //     return photoUrl
-    // }
-
     const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const email = emailRef.current?.value || "";
@@ -45,9 +28,6 @@ const SignUp = () => {
         const username = usernameRef.current?.value || ""
         const firstname = firstnameRef.current?.value || ""
         const lastname = lastnameRef.current?.value || ""
-
-        // const uploadedImgUrl = await uploadImg()
-        // if(!uploadedImgUrl) return null
 
         if(user) {
             setUser(
@@ -89,9 +69,10 @@ const SignUp = () => {
     }
 
     return (  
-        <section>
-            <h2 className="text-center mb-5">Sign Up</h2>
-            <form onSubmit={handleSignUp} className="grid grid-cols-2 items-center gap-3 px-80">
+        <section className="lg:w-1/2 mx-auto">
+            <h2 className="text-center mb-5 text-4xl font-medium">Sign Up</h2>
+            <p className="text-center mb-7">You need to be a member in order to create and edit recipes.</p>
+            <form onSubmit={handleSignUp} className="grid grid-cols-2 items-center gap-3">
                 <fieldset className="col-span-2">
                     <label htmlFor="username">Username</label>
                     <input 
@@ -99,8 +80,7 @@ const SignUp = () => {
                         required
                         name="username" 
                         placeholder="Username" 
-                        ref={usernameRef} 
-                        className="bg-lime-200"/>
+                        ref={usernameRef} />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="email">Email</label>
@@ -109,8 +89,7 @@ const SignUp = () => {
                         required 
                         name="email" 
                         placeholder="Email" 
-                        ref={emailRef} 
-                        className="bg-lime-200"/>
+                        ref={emailRef} />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="password">Password</label>
@@ -119,8 +98,7 @@ const SignUp = () => {
                         required 
                         name="password" 
                         placeholder="Password" 
-                        ref={passwordRef} 
-                        className="bg-lime-200"/>
+                        ref={passwordRef} />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="firstname">First Name</label>
@@ -129,8 +107,7 @@ const SignUp = () => {
                         required 
                         name="firstname" 
                         placeholder="First Name" 
-                        ref={firstnameRef} 
-                        className="bg-lime-200"/>
+                        ref={firstnameRef} />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="lastname">Last Name</label>
@@ -139,35 +116,20 @@ const SignUp = () => {
                         required 
                         name="lastname" 
                         placeholder="Last Name" 
-                        ref={lastnameRef} 
-                        className="bg-lime-200"/>
+                        ref={lastnameRef} />
                 </fieldset>
-                {/* <fieldset>
-                    <label htmlFor="profile-img">Upload Profile Image</label>
-                    <input 
-                        type="file" 
-                        id="profile-img" 
-                        accept="image/*" 
-                        className="bg-lime-200"
-                        required
-                        onChange={(e) => {
-                            if(e.target.files) {
-                                setProfileImg(e.target.files[0])
-                            }
-                        }}/>
-                </fieldset> */}
                 <fieldset className="mt-5 flex col-span-2 justify-center gap-5">
                     <Button
                     text="Register"
                     title="Register"
-                    bgColor="bg-lime-600"
-                    hoverBgColor="hover:bg-lime-500"
+                    bgColor="bg-recipe-light-green"
+                    hoverBgColor="hover:bg-recipe-green"
                     buttonType="submit"/>
                     <Button
                     text="I have a profile already"
                     title="To Login"
-                    bgColor="bg-amber-600"
-                    hoverBgColor="hover:bg-amber-500"
+                    bgColor="bg-recipe-yellow"
+                    hoverBgColor="hover:bg-recipe-pink"
                     buttonType="button"
                     action={() => navigate("/login")}/>
                 </fieldset>

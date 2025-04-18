@@ -9,7 +9,7 @@ interface ButtonProps {
 
 const Button = ({text, title, action, buttonType, bgColor, hoverBgColor} : ButtonProps) => {
     return (
-        <button type={buttonType} title={title} className={`text-white px-4 py-1 rounded-full transition-all ${hoverBgColor} cursor-pointer ${bgColor}`} onClick={action}>
+        <button type={buttonType} title={title} className={`text-white px-4 py-1 transition-all rounded-sm ${hoverBgColor} cursor-pointer ${bgColor}`} onClick={action}>
             {text}
         </button>
     );

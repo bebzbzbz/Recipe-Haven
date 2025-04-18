@@ -31,8 +31,9 @@ const Login = () => {
     }
 
     return (  
-        <section className="px-40">
-            <h2 className="text-center mb-5">Login</h2>
+        <section>
+            <h2 className="text-center mb-5 text-4xl font-medium">Login</h2>
+            <p className="text-center mb-7">You need to be a member in order to create and edit recipes.</p>
             <form onSubmit={handleLogin} className="flex flex-col items-center gap-5 mx-auto">
                 <fieldset className="w-80">
                     <label htmlFor="email">Email</label>
@@ -40,8 +41,7 @@ const Login = () => {
                         type="text" 
                         placeholder="Email" 
                         ref={emailRef} 
-                        required
-                        className="bg-lime-200"/>
+                        required/>
                 </fieldset>
                 <fieldset className="w-80">
                     <label htmlFor="password">Password</label>
@@ -49,22 +49,21 @@ const Login = () => {
                         type="password" 
                         placeholder="Password" 
                         ref={passwordRef} 
-                        required
-                        className="bg-lime-200"/>
+                        required/>
                 </fieldset>
                 <fieldset className="flex gap-5 text-center">
                     <Button 
                         text="Login" 
                         title="Login" 
                         buttonType="submit"
-                        bgColor="bg-lime-600"
-                        hoverBgColor="hover:bg-lime-500"
+                        bgColor="bg-recipe-light-green"
+                        hoverBgColor="hover:bg-recipe-green"
                     />
                     <Button
                     text="Register first"
                     title="Register"
-                    bgColor="bg-amber-600"
-                    hoverBgColor="hover:bg-amber-500"
+                    bgColor="bg-recipe-yellow"
+                    hoverBgColor="hover:bg-recipe-pink"
                     buttonType="button"
                     action={() => navigate("/signup")}/>
                 </fieldset>
