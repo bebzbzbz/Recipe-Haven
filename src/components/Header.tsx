@@ -95,7 +95,7 @@ const Header = () => {
                     className="absolute top-0 h-full w-full object-cover" />
                 <div 
                     className={`w-full h-full top-0 absolute ${location.pathname === "/" ? "opacity-15 bg-background" : "opacity-35 bg-recipe-brown"}`}></div>
-                <h1 className={`text-4xl md:text-5xl text-center mx-10 text-white z-10 ${location.pathname === "/" ? "xl:mx-120" : "xl:mx-100"}`} dangerouslySetInnerHTML={{ __html: headerContent.heading }}>
+                <h1 className={`text-4xl md:text-5xl text-center mx-10 text-white z-10 ${location.pathname === "/" ? "xl:mx-100" : "xl:mx-100"}`} dangerouslySetInnerHTML={{ __html: headerContent.heading }}>
                 </h1>
 
                 <div className="flex flex-wrap justify-center gap-2 md:gap-3 z-10 mx-3">
