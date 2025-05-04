@@ -1,6 +1,6 @@
 # Recipe Haven 🥗🍹
 
-Hier ein Video
+https://github.com/user-attachments/assets/0ec55ca4-c820-446a-a3df-3b99f36c9e31
 
 The Recipe Haven App was developed as a community website for people who appreciate discovering and sharing good food from different cultures. Users can browse existing recipes, or create a profile in order to create and edit new recipes. The registered user is able to edit their profile, including a profile image.
 
@@ -8,7 +8,7 @@ The Recipe Haven App was developed as a community website for people who appreci
 
 - [About the Project](#about-the-project)
   - [Features](#features)
-  - [Future Version 2.0](#future-version-2.0)
+  - [Future Version 2.0](#future-version-20)
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
