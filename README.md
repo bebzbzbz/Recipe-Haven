@@ -1,13 +1,14 @@
 # Recipe Haven 🥗🍹
 
-The Pokémon API Project was developed as a team and offers an interactive application that makes it possible to retrieve Pokémon data from a public API. The main features include displaying an overview of all Pokémon per generation on the home page, the ability to search for a specific Pokémon, and a detailed view of each Pokémon that includes additional information such as types and attacks.
+Hier ein Video
 
-The application was developed using React.js and implements a user-friendly navigation that allows users to switch between different views and Pokémon detail pages. The header includes a dark/light mode button to customise the user interface according to the user's preferences.
+The Recipe Haven App was developed as a community website for people who appreciate discovering and sharing good food from different cultures. Users can browse existing recipes, or create a profile in order to create and edit new recipes. The registered user is able to edit their profile, including a profile image.
 
 ## Table of Contents
 
 - [About the Project](#about-the-project)
   - [Features](#features)
+  - [Future Version 2.0](#future-version-2.0)
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -18,24 +19,27 @@ The application was developed using React.js and implements a user-friendly navi
 ## About the Project
 
 ### Features
+Home
+- Showcases three random recipes for inspiration
 
-Home page:
-- Displays Pokémon per generation retrieved from the API, including GIFs, name and ID
-- Possibility to search for a specific Pokémon via an input field
-- Possibility to click directly on one of the Pokémon to access the detailed view
+Recipes
+- Sorted by categories of types of dishes and ethnicities
+- Teasers with user feedback with overlay of the recipe description
+- A recipe includes a photo, description, list of ingredients and instructions
 
-Detailed view of a Pokémon:
-- Shows the type of Pokémon
-- Lists all "Movements" (attacks and abilities) of the Pokémon
-- A "Back Arrow" allows navigation to the previous page
+Create and Edit Recipes
+- Only accessible once registered or logged in
+- Recipes can be edited or deleted
+- Step 1: Recipe name (must be unique!), servings, category, image, description and instructions
+- Step 2: (optional) Details to two ingredients, additional info, quantity and unit
 
-Navigation:
-- The large Pokémon logo in the header of the page directs the user from each page back to the homepage
-- A burger menu on the homepage directs to an overview of all Pokémon types
-- Possibility to switch between Pokémon generations
-- Clicking on a type takes the user to an overview of all Pokémon of that type
-- From the type overview, the user can switch back to the detailed view of a Pokémon
-- A back-to-top button bring the user back up to the header of the home page
+Profile
+- Option to edit username, profile image, first name or last name
+
+### Future Version 2.0
+- Option to save more than two ingredients and create input fields responsively
+- Create a community tab with an overview of existing members and their profiles
+- Only delete and edit the recipes you have created yourself
 
 ## Tech Stack
 
@@ -49,6 +53,9 @@ Navigation:
 **JS Library:**  
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)  
 
+**Backend Database:**  
+![Supabase](https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white)  
+
 **Programming Language:**  
 ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)  
 
@@ -61,10 +68,9 @@ Navigation:
 **Version Control:**  
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)  
 
-
 ## Getting Started
 
-Here is a guide on how to set up and run the Pokémon API project on your local computer:
+Here is a guide on how to set up and run the Recipe Haven project on your local computer:
 
 ### Prerequisites
 
@@ -78,7 +84,7 @@ You should have the following programmes installed:
 
 1. **Clone das "Repository":**
    ```bash
-   git clone https://github.com/bebzbzbz/Project-Pokemon-API
+   git clone https://github.com/bebzbzbz/Recipe-Haven
    ```
 
 2. **Install dependencies & run the development server:**
@@ -87,13 +93,13 @@ You should have the following programmes installed:
    npm run dev
    ```
 
-3. **Open your local host and have fun browsing your favourite Pokémon! 🐸** 
+3. **Open your local host and have enjoy cooking !** 
 
 ## Design
 
-The design of the project is based on a Figma template, which serves as the basis for the layout and colour palette to ensure a consistent and appealing user interface. The design was developed with a mobile-first approach and implemented using TailwindCSS to ensure that the application works optimally on mobile devices. At the same time, the project was designed to be fully responsive so that it adapts to different screen sizes and provides a user-friendly interface on all devices.
+The app's design is meant resemble the style of recipe magazine and books. It was developed with a mobile-first approach and implemented using TailwindCSS to ensure that the application works optimally fully responsively on different screen sizes. The Header features different images for each page.
 
 ## Deployment
 
-Click here to go directly to the website
-- [Pokemon API Team-Projekt](https://bz-recipe-haven.vercel.app/)
+Click here to go directly to the website of the deployed app
+- [Recipe Haven Project](https://bz-recipe-haven.vercel.app/)
