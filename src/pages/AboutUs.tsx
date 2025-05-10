@@ -1,6 +1,6 @@
 const AboutUs = () => {
     return (  
-        <section className="w-3/4 mx-auto">
+        <section className="lg: mx-auto">
             <h2 className="text-center mb-10 text-4xl font-medium">About Us</h2>
             <div className="grid lg:grid-cols-[2fr_3fr] gap-10">
                 <div className="flex flex-col md:flex-row lg:flex-col gap-5 text-center items-center">

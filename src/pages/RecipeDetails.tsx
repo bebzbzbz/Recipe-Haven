@@ -59,7 +59,7 @@ const RecipeDetails = () => {
   }
 
   return (  
-      <section className="flex flex-col-reverse lg:flex-row gap-10 w-3/4 mx-auto justify-between">
+      <section className="flex flex-col-reverse lg:flex-row gap-10 lg:w-3/4 mx-auto justify-between">
         {recipeDetails ? <div className="flex flex-col gap-5 lg:w-1/2">
           <div>
             <h2 className="text-4xl font-medium">{recipeDetails?.name}</h2>
